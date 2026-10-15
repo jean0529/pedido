@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Um pedido especial ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffc8dd, #ffafcc);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cartao {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      padding: 35px 20px;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px #0002;
+    }
+
+    .coracao {
+      font-size: 65px;
+      animation: pulsar 1s infinite;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 28px;
+    }
+
+    p {
+      color: #555;
+      font-size: 17px;
+    }
+
+    .botoes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 25px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #sim {
+      background: #ff4d8d;
+      color: white;
+    }
+
+    #nao {
+      background: #eee;
+      color: #333;
+    }
+
+    #mensagem {
+      display: none;
+      color: #d63384;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+
+    @keyframes pulsar {
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .chuva {
+      position: fixed;
+      top: -30px;
+      animation: cair 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes cair {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="cartao">
+    <div class="coracao">❤️</div>
+
+    <h1>Quer namorar comigo?</h1>
+    <p>Tenho uma perguntinha muito especial para você... 🥹💗</p>
+
+    <div class="botoes">
+      <button id="sim">Sim ❤️</button>
+      <button id="nao">Não 🙈</button>
+    </div>
+
+    <div id="mensagem">
+      SIMMMMM! ❤️🥰
+      <p>Eu te amo muito! Você é a pessoa que quero ao meu lado! 💖</p>
+    </div>
+  </main>
+
+  <script>
+    const nao = document.getElementById("nao");
+    const sim = document.getElementById("sim");
+
+    function fugir() {
+      nao.style.position = "fixed";
+
+      const maxX = window.innerWidth - nao.offsetWidth - 10;
+      const maxY = window.innerHeight - nao.offsetHeight - 10;
+
+      nao.style.left = Math.max(10, Math.random() * maxX) + "px";
+      nao.style.top = Math.max(10, Math.random() * maxY) + "px";
+    }
+
+    nao.addEventListener("pointerenter", fugir);
+
+    nao.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      fugir();
+    }, { passive: false });
+
+    sim.addEventListener("click", function() {
+      document.getElementById("mensagem").style.display = "block";
+      document.querySelector(".botoes").style.display = "none";
+
+      for (let i = 0; i < 40; i++) {
+        const coracao = document.createElement("span");
+        coracao.className = "chuva";
+        coracao.textContent = ["❤️", "💕", "💖", "💗"][Math.floor(Math.random() * 4)];
+        coracao.style.left = Math.random() * 100 + "vw";
+        coracao.style.animationDelay = Math.random() * 2 + "s";
+        coracao.style.fontSize = (18 + Math.random() * 20) + "px";
+
+        document.body.appendChild(coracao);
+
+        setTimeout(() => coracao.remove(), 6000);
+      }
+    });
+  </script>
+</body>
+</html>
